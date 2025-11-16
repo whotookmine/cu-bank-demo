@@ -48,6 +48,8 @@ TC07-01 Pay Bill - Electric (Valid)
 
     Refresh Page Before Test
 
+    Sleep    1
+
     # Step 4 - Verify success message & balance
     Ensure Balance Equals    900
 
@@ -71,6 +73,8 @@ TC07-02 Pay Bill - Water (Valid, Boundary = Full Balance)
 
     Refresh Page Before Test
 
+    Sleep    1
+
     # Step 4 - Verify success message & balance = 0
     Ensure Balance Equals    0
 
@@ -92,6 +96,8 @@ TC07-03 Pay Bill - Phone (Valid, Lower Boundary)
     Click Element    xpath=//button[@cid="bc"]
 
     Refresh Page Before Test
+
+    Sleep    1
 
     # Step 4 - Verify success message & balance = 999
     Ensure Balance Equals    999

@@ -19,10 +19,11 @@ ${LOGIN_BTN}             //*[@cid='lc']
 ${DEP_AMOUNT_INPUT}      //*[@cid='d1']
 ${DEP_SUBMIT_BTN}        //*[@cid='dc']
 ${DEP_ERROR_LABEL}       //*[@cid='deposite-error-mes']
-
 # expected text (จากเอกสาร)
 ${ERR_INVALID_NUMBER}    Invalid balance amount. Please enter a valid number.
 ${ERR_POSITIVE_ONLY}     The amount must be greater than 0. Please enter a positive number.
+${ERR_WHOLE}    The balance amount must be a whole number with no decimals.
+
 
 *** Test Cases ***
 TC3-1 Deposit fails with amount = 0
@@ -33,7 +34,7 @@ TC3-1 Deposit fails with amount = 0
     Input Text    ${DEP_AMOUNT_INPUT}    0
     Click Element    ${DEP_SUBMIT_BTN}
     Wait For Deposit Error Text    ${ERR_POSITIVE_ONLY}
-    Capture Evidence    scenario3-eq2-amount0
+    # Capture Evidence    scenario3-eq2-amount0
 
 TC3-2 Deposit fails with negative amount
     [Tags]    scenario3    eq3
@@ -43,7 +44,7 @@ TC3-2 Deposit fails with negative amount
     Input Text    ${DEP_AMOUNT_INPUT}    -100
     Click Element    ${DEP_SUBMIT_BTN}
     Wait For Deposit Error Text    ${ERR_POSITIVE_ONLY}
-    Capture Evidence    scenario3-eq3-negative
+    # Capture Evidence    scenario3-eq3-negative
 
 TC3-3 Deposit fails with non-numeric amount
     [Tags]    scenario3    eq4
@@ -52,8 +53,17 @@ TC3-3 Deposit fails with non-numeric amount
     Clear Element Text    ${DEP_AMOUNT_INPUT}
     Input Text    ${DEP_AMOUNT_INPUT}    abc
     Click Element    ${DEP_SUBMIT_BTN}
-    # Wait For Deposit Error Text    ${ERR_INVALID_NUMBER}
-    Capture Evidence    scenario3-eq4-nonnumeric
+    Wait For Deposit Error Text    ${ERR_INVALID_NUMBER}
+    # Capture Evidence    scenario3-eq4-nonnumeric
+
+TC3-4 Deposit fails with decimal amount
+    [Tags]    scenario3    eq4
+    Open App And Login
+    Go To Account Page
+    Clear Element Text    ${DEP_AMOUNT_INPUT}
+    Input Text    ${DEP_AMOUNT_INPUT}    20.00
+    Click Element    ${DEP_SUBMIT_BTN}
+    Wait For Deposit Error Text    ${ERR_WHOLE}
 
 *** Keywords ***
 Open App And Login
