@@ -7,12 +7,12 @@ ${WEB_URL}    http://localhost:3000/register
 ${WEB_BROWSER}    chrome
 
 ${ERR_NUMBER_ONLY}    Your account ID should contain numbers only.
-${ERR_IN_USE}    This account ID is already in use. Please use a different account ID.
+${ERR_IN_USE}    This account ID is already in use. Please choose another.
 ${ERR_LEN_10}    Your account ID must be exactly 10 digits long.
 ${ERR_FILL}    Please fill out this field.
-${ERR_NUM_ONLY}    Your password should contain numbers only.
+${ERR_NUM_ONLY}    Your password should contain numbers only
 ${ERR_LEN_4}    Your password must be exactly 4 digits long.
-${ERR_LEN_30}    The combined length of your first and last name must not exceed 30 characters.
+${ERR_LEN_30}    Your fullname must be 30 characters or less, including spaces.
 *** Test Cases ***
 TC1: Register Success
     Open Browser    ${WEB_URL}    ${WEB_BROWSER}
@@ -23,6 +23,7 @@ TC1: Register Success
     Input text    //*[@id="password"]    1234
     Input text    //*[@id="firstName"]    Time
     Input text    //*[@id="lastName"]    Patiphon
+    Wait Until Element Is Visible    //*[@id="root"]/div/div/div/form/button
     Click Element    //*[@id="root"]/div/div/div/form/button
 
     Alert Should Be Present    Registration successful!
@@ -36,6 +37,7 @@ TC2: Register with NaN acc number
     Input text    //*[@id="password"]    1234
     Input text    //*[@id="firstName"]    Time
     Input text    //*[@id="lastName"]    Patiphon
+    Wait Until Element Is Visible    //*[@id="root"]/div/div/div/form/button
     Click Element    //*[@id="root"]/div/div/div/form/button
 
     Wait Until Page Contains    ${ERR_NUMBER_ONLY}
@@ -50,6 +52,7 @@ TC3: Register with existing Account Number
     Input text    //*[@id="password"]    1234
     Input text    //*[@id="firstName"]    Time
     Input text    //*[@id="lastName"]    Patiphon
+    Wait Until Element Is Visible    //*[@id="root"]/div/div/div/form/button
     Click Element    //*[@id="root"]/div/div/div/form/button
 
     Wait Until Page Contains    ${ERR_IN_USE}
@@ -64,6 +67,7 @@ TC4: Register with Account Number len < 10
     Input text    //*[@id="password"]    1234
     Input text    //*[@id="firstName"]    Time
     Input text    //*[@id="lastName"]    Patiphon
+    Wait Until Element Is Visible    //*[@id="root"]/div/div/div/form/button
     Click Element    //*[@id="root"]/div/div/div/form/button
 
     Wait Until Page Contains    ${ERR_LEN_10}
@@ -78,6 +82,7 @@ TC5: Register with Account Number len > 10
     Input text    //*[@id="password"]    1234
     Input text    //*[@id="firstName"]    Time
     Input text    //*[@id="lastName"]    Patiphon
+    Wait Until Element Is Visible    //*[@id="root"]/div/div/div/form/button
     Click Element    //*[@id="root"]/div/div/div/form/button
 
     Wait Until Page Contains    ${ERR_LEN_10}
@@ -106,6 +111,7 @@ TC6: Register Invalid Password NaN
     Input text    //*[@id="password"]    123a
     Input text    //*[@id="firstName"]    Time
     Input text    //*[@id="lastName"]    Patiphon
+    Wait Until Element Is Visible    //*[@id="root"]/div/div/div/form/button
     Click Element    //*[@id="root"]/div/div/div/form/button
 
     Wait Until Page Contains    ${ERR_NUM_ONLY}
@@ -120,6 +126,7 @@ TC7: Register Invalid Password Length less than 4
     Input text    //*[@id="password"]    123
     Input text    //*[@id="firstName"]    Time
     Input text    //*[@id="lastName"]    Patiphon
+    Wait Until Element Is Visible    //*[@id="root"]/div/div/div/form/button
     Click Element    //*[@id="root"]/div/div/div/form/button
 
     Wait Until Page Contains    ${ERR_LEN_4}
@@ -134,6 +141,7 @@ TC8: Register Invalid Password Length greater than 4
     Input text    //*[@id="password"]    12345
     Input text    //*[@id="firstName"]    Time
     Input text    //*[@id="lastName"]    Patiphon
+    Wait Until Element Is Visible    //*[@id="root"]/div/div/div/form/button
     Click Element    //*[@id="root"]/div/div/div/form/button
 
     Wait Until Page Contains    ${ERR_LEN_4}
@@ -162,6 +170,7 @@ TC9: Register Full name longer than 30 characters
     Input text    //*[@id="password"]    1234
     Input text    //*[@id="firstName"]    ThisIsAReallyLongTextForTestingPurpose
     Input text    //*[@id="lastName"]    ThisIsAReallyLongTextForTestingPurpose
+    Wait Until Element Is Visible    //*[@id="root"]/div/div/div/form/button
     Click Element    //*[@id="root"]/div/div/div/form/button
 
     Wait Until Page Contains    ${ERR_LEN_30}
